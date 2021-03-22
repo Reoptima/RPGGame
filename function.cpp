@@ -39,6 +39,7 @@ string input_str(const string &name) {
     string a;
     cout << "Добро пожаловать в MPT_CPP_MEGA_WOW_DELUXE-EDITION\nВведите " <<name << ": ";
     cin >> a;
+    getline(cin,a);
     return a;
 }
 
