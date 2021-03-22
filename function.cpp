@@ -27,12 +27,23 @@ void clear() {
 //    string indent = "\n";
 //    cout << indent * 40;
 };
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
 
 int input_int(const string &name) {
-    int a;
+    int i;
+    string a;
     cout << "Сделайте выбор " + name + ": ";
-    cin >> a;
-    return a;
+    while (true){
+        getline(cin, a);
+        if (is_number(a)){
+            return stoi(a);
+        }
+    }
 }
 
 string input_str(const string &name) {
