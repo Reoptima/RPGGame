@@ -6,7 +6,7 @@
 #ifndef RPG_LITEDUNGEON_H
 #define RPG_LITEDUNGEON_H
 
-DungeonClass LiteDungeon = DungeonClass("Легкое подземелье", 3, 1,2,70,
+DungeonClass LiteDungeon = DungeonClass("Легкое подземелье", 4, 1,2,70,
                                         std::vector{
                                         UndeadEnemies::skeleton,
                                         UndeadEnemies::skeleton,

@@ -31,7 +31,8 @@ namespace locations {
 
     void close_game() {
         clear();
-        std::cout << " И жили они долго и счастливо" << std::endl;
+        Hero.save();
+        std::cout << "Э, алё, куда?\nИгра сохранена, так что просто имя своё напомни когда вернёшься" << std::endl;
         exit(11);
     }
 
@@ -176,7 +177,7 @@ namespace locations {
     void tavern() {
         while (true) {
             clear();
-            switch (choice("Таверна", list<string>{"Вернуть в центр города", "Наёмники", "Продать артефакты\n0 - Меню"})) {
+            switch (choice("Таверна\nЗолото: " + to_string(Hero.getGold()) + "\n", list<string>{"Вернуть в центр города", "Наёмники", "Продать артефакты\n0 - Меню"})) {
                 case 0:
                     if (menu() == 1) {
                         close_game();
@@ -200,7 +201,7 @@ namespace locations {
         ArmyClass army = ArmyClass("", 0, 0, 0, 0, 0, 0, 0);
         while (true) {
             clear();
-            switch (choice("Наёмники", list<string>{"Эльфы 250 золота", "Орки 300 золота", "Суккубы 200 золота",
+            switch (choice("Золото: " + to_string(Hero.getGold()) + "\nНаёмники", list<string>{"Эльфы 250 золота", "Орки 300 золота", "Суккубы 200 золота",
                                                     "Дворфы 450 золота"})) {
                 case 0:
                     return;
