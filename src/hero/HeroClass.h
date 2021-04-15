@@ -213,7 +213,7 @@ public:
             if (this->ArtifactHelmet.getArtifactName()!="Пусто"){
                 this->inventory.push_back(this->ArtifactHelmet);
             }
-
+            removeByArtifact(NewArtifactHelmet);
             this->ArtifactHelmet= NewArtifactHelmet;
         }
         this->save();
@@ -235,6 +235,7 @@ public:
             if (this->ArtifactHands.getArtifactName()!="Пусто"){
                 this->inventory.push_back(this->ArtifactHands);
             }
+            removeByArtifact(NewArtifactHands);
             this->ArtifactHands= NewArtifactHands;
         }
         this->save();
@@ -245,6 +246,7 @@ public:
             if (this->ArtifactLegs.getArtifactName()!="Пусто"){
                 this->inventory.push_back(this->ArtifactLegs);
             }
+            removeByArtifact(NewArtifactLegs);
             this->ArtifactLegs= NewArtifactLegs;
         }
         this->save();

@@ -151,7 +151,8 @@ namespace locations {
     void city() {
         while (true) {
             clear();
-            switch (choice("Центр города", list<string>{"Пойти в таверну", "Отправиться в подземелье", "Отдохнуть\n0 - Меню"})) {
+            switch (choice("Центр города",
+                           list<string>{"Пойти в таверну", "Отправиться в подземелье", "Отдохнуть\n0 - Меню"})) {
                 case 0:
                     if (menu() == 1) {
                         close_game();
@@ -177,7 +178,8 @@ namespace locations {
     void tavern() {
         while (true) {
             clear();
-            switch (choice("Таверна\nЗолото: " + to_string(Hero.getGold()) + "\n", list<string>{"Вернуть в центр города", "Наёмники", "Продать артефакты\n0 - Меню"})) {
+            switch (choice("Таверна\nЗолото: " + to_string(Hero.getGold()) + "\n",
+                           list<string>{"Вернуть в центр города", "Наёмники", "Продать артефакты\n0 - Меню"})) {
                 case 0:
                     if (menu() == 1) {
                         close_game();
@@ -201,8 +203,9 @@ namespace locations {
         ArmyClass army = ArmyClass("", 0, 0, 0, 0, 0, 0, 0);
         while (true) {
             clear();
-            switch (choice("Золото: " + to_string(Hero.getGold()) + "\nНаёмники", list<string>{"Эльфы 250 золота", "Орки 300 золота", "Суккубы 200 золота",
-                                                    "Дворфы 450 золота"})) {
+            switch (choice("Золото: " + to_string(Hero.getGold()) + "\nНаёмники",
+                           list<string>{"Эльфы 250 золота", "Орки 300 золота", "Суккубы 200 золота",
+                                        "Дворфы 450 золота"})) {
                 case 0:
                     return;
                 case 1:
@@ -325,6 +328,48 @@ namespace locations {
         }
     }
 
+    void records() {
+        bool IsSort = false;
+        while (true) {
+            clear();
+            vector<vector<string>> sortRecord;
+            json data = ManagementSave::gerRecords();
+            for (auto val : data.items()) {
+                if (val.value().contains("level") && val.value().contains("gold")) {
+                    vector<string> vrem;
+                    vrem.push_back(val.key());
+                    vrem.push_back(to_string(val.value()["level"].get<int>()));
+                    vrem.push_back(to_string(val.value()["gold"].get<int>()));
+                    sortRecord.push_back(vrem);
+                }
+            }
+            if (IsSort) {
+                sort(sortRecord.begin(), sortRecord.end(), sortGold);
+            } else {
+                sort(sortRecord.begin(), sortRecord.end(), sortLevel);
+            }
+            json records = ManagementSave::gerRecords();
+            json sortRecords;
+            printf("-----------------------------\n");
+            printf("|%15s|%5s|%7s|\n", "Ник", "Уровень", "Золото");
+            printf("-----------------------------\n");
+            for (auto val : sortRecord) {
+                printf("|%12s|%7s|%6s|\n", val[0].c_str(), val[1].c_str(), val[2].c_str());
+            };
+            printf("-----------------------------\n");
+            switch (choice("", list<string>{"Сортировать по уровню", "Сортировка по золоту"})) {
+                case 1:
+                    IsSort = false;
+                    break;
+                case 2:
+                    IsSort = true;
+                    break;
+                case 0:
+                    return;
+            }
+        }
+    }
+
     int menu() {
         while (true) {
             clear();
@@ -349,7 +394,7 @@ namespace locations {
                     " доп.маг.урон " + to_string((int) (Hero.getKnowledgePercentage() * 100)) + "%" + "\n";
             statistics += "Золото: " + to_string(Hero.getGold()) + "\n";
             std::cout << statistics << std::endl;
-            switch (choice("", list<string>{"Инвентарь", "Список скилов", "Наёмники", "Выход из игры"})) {
+            switch (choice("", list<string>{"Инвентарь", "Скилы", "Наёмники", "Выход из игры"})) {
                 case 0:
                     return 0;
                     break;
@@ -361,6 +406,9 @@ namespace locations {
                     break;
                 case 3:
                     listArmies();
+                    break;
+                case 5:
+                    records();
                     break;
                 case 4:
                     return 1;
