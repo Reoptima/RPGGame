@@ -22,7 +22,7 @@ void registration(){
     string name = input_str("имя героя");
     if (ManagementSave::checkSave(name))
     {
-        if(choice("\nооо, смотрю вы уже играли в нашу игру. \nЯ всё сохраняю, так что могу вернуть весь твой прогресс, братишка\n\nЗагружаемся?", list<string>{"Давай", "Не надо"})==1) {
+        if(choice("\nооо, смотрю вы уже играли в нашу игру. \nЯ всё сохраняю, так что могу вернуть весь твой прогресс, братишка\n\nЗагружаемся?", list<string>{"Погнали!", "Не, давай по новой"})==1) {
             string grade = ManagementSave::getGrade(name);
             if (grade == "Воин") Hero = WarriorClass(name);
             else if (grade == "Лучник") Hero = ArcherClass(name);
